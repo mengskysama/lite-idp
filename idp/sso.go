@@ -258,7 +258,7 @@ func (i *IDP) loginWithPasswordForm(r *http.Request, authnReq *model.AuthnReques
 	user := &model.User{
 		Name:    userName,
 		Format:  "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
-		Context: "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport",
+		Context: viper.GetString("saml-nameid-format"),
 		IP:      getIP(r).String()}
 	// Add attributes
 	if err := i.setUserAttributes(user, authnReq); err != nil {

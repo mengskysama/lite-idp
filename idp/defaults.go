@@ -37,4 +37,5 @@ func init() {
 	viper.SetDefault("saml-attribute-name-format", "urn:oasis:names:tc:SAML:2.0:attrname-format:basic")
 	viper.SetDefault("compat-longer-relay-state", false)
 	viper.SetDefault("disable-validate-request", false)
+	viper.SetDefault("saml-nameid-format", "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified")
 }

@@ -183,8 +183,10 @@ func (i *IDP) DefaultRedirectSSOHandler() http.HandlerFunc {
 				return err
 			}
 
-			if err = i.validateRequest(loginReq, r); err != nil {
-				return err
+			if viper.GetBool("disable-validate-request") {
+				if err = i.validateRequest(loginReq, r); err != nil {
+					return err
+				}
 			}
 
 			// create saveable request

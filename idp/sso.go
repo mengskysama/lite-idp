@@ -37,6 +37,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/google/uuid"
 	log "github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 )
 
 func (i *IDP) validateRequest(request *saml.AuthnRequest, r *http.Request) error {
@@ -160,8 +161,10 @@ func (i *IDP) DefaultRedirectSSOHandler() http.HandlerFunc {
 				return err
 			}
 			relayState := r.Form.Get("RelayState")
-			if len(relayState) > 80 {
-				return errors.New("RelayState cannot be longer than 80 characters")
+			if viper.GetBool("compat-longer-relay-state") {
+				if len(relayState) > 80 {
+					return errors.New("RelayState cannot be longer than 80 characters")
+				}
 			}
 
 			samlReq := r.Form.Get("SAMLRequest")
